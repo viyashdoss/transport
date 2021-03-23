@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport-Company</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+        $('#p1').css({'color':"white"})
+        $('#p2').css({'color':"white"})
+        $('#p3').css({'color':"white"})
+        $('input[type="button"]').click(function(){
+            $('#p1').remove()
+            $('#p2').remove()
+            $('#p3').remove()
+        })
+    })
+
+    </script>
+</head>
+<body style="background-color: linear-gradient(to right, rgb(100, 65, 165), rgb(42, 8, 69));
+    background-image: linear-gradient(to right, rgb(100, 65, 165), rgb(42, 8, 69));">
+<div class="container " align="center">
+<h1 style="color:white;"><strong>ABC Company Vehicle Planner</strong></h1>
+    <form method="POST">{% csrf_token %}
+
+        <input type="text" name="weight" class="mt-3"/>
+        <input type="submit" value="plan" class="btn btn-primary mt-2"/></br>
+        <p id="p1">vehicle A :{{vehicleA}}</p>
+        <p id="p2">vehicle B :{{vehicleB}}</p>
+        <p id="p3">vehicle C :{{vehicleC}}</p>     
+        <input type="button" value="refresh" class="btn btn-primary mt-3"/>   
+    </form>
+    <div class="container my-4">
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Logic</h5><hr class="background-color:black;color:black;"></hr>
+    <p class="card-text">
+        capacity= 250</br>
+        va=[]</br>
+        vb=[]</br>
+        vc=[]</br>
+        a=250</br>
+        b=250</br>
+        c=250</br>
+        packages= weight.split(',')</br>
+        packages=list(map(int, packages))</br>
+        for i in range(0,len(packages)):</br>
+            if packages[i]>5 and sum(va)+packages[i]<250:</br>
+                va.append(packages[i])</br>
+            elif packages[i]<50 and sum(vb)+packages[i]<250:</br>
+                vb.append(packages[i])</br>
+            elif sum(vc)+packages[i]<250:</br>
+                vc.append(packages[i])</br>
+
+
+            if sum(vb)<=100:</br>
+                for i in range(0,len(vb)):</br>
+                    if vb[i]>5 and sum(va)+vb[i]<250:</br>
+                        va.append(vb[i])</br>
+                    elif sum(vc)+vb[i]<250: </br>
+                        vc.append(vb[i])</br>
+
+            if sum(vb)<=100:</br>
+                vb=[]
+            
+            print("Vehicle A:",va)</br>
+            print("Vehicle B:",vb)</br>
+            print("Vehicle C:",vc)</br></p>
+  </div>
+</div>
+    </div>
+</div>  
+
+</body>
+</html>
